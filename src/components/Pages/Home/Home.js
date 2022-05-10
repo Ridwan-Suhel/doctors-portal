@@ -1,11 +1,12 @@
 import React from "react";
-import Header from "../../Shared/Header/Header";
 import Banner from "./Banner";
+import InfoCards from "./InfoCards";
 
 const Home = () => {
   return (
     <main>
       <Banner></Banner>
+      <InfoCards></InfoCards>
     </main>
   );
 };
