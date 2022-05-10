@@ -25,21 +25,21 @@ const Contact = () => {
             <input
               type="email"
               placeholder="Email Address"
-              class="input input-bordered w-full  mb-5"
+              className="input input-bordered w-full  mb-5"
             />
             <input
               type="text"
               placeholder="Subject"
-              class="input input-bordered w-full mb-5"
+              className="input input-bordered w-full mb-5"
             />
             <textarea
-              class="textarea textarea-bordered w-full mb-5 h-32"
+              className="textarea textarea-bordered w-full mb-5 h-32"
               placeholder="Your Message"
             ></textarea>
             <input
               type="submit"
               value="Submit"
-              class="btn btn-primary mx-auto text-center flex text-white px-12"
+              className="btn btn-primary mx-auto text-center flex text-white px-12"
             />
           </form>
         </div>

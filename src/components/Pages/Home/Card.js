@@ -8,8 +8,8 @@ const Card = ({ info }) => {
       <figure>
         <img src={info.img} alt="img" />
       </figure>
-      <div class="card-body">
-        <h2 class="card-title">{info.title}</h2>
+      <div className="card-body">
+        <h2 className="card-title">{info.title}</h2>
         <p>{info.description}</p>
       </div>
     </div>
