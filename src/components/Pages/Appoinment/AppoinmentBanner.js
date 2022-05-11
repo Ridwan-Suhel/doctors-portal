@@ -1,9 +1,7 @@
 import React from "react";
 import chair from "../../../assets/images/chair.png";
-import Button from "../../Shared/Button/Button";
 import bannerBg from "../../../assets/images/bg.png";
-
-const Banner = () => {
+const AppoinmentBanner = () => {
   return (
     <section
       className=""
@@ -11,7 +9,7 @@ const Banner = () => {
         backgroundImage: `url(${bannerBg})`,
         backgroundSize: "cover",
         backgroundRepeat: "no-repeat",
-        backgroundPosition: "center -150px",
+        backgroundPosition: "center -140px",
       }}
     >
       <div className="container mx-auto">
@@ -29,7 +27,6 @@ const Banner = () => {
                 industry. Lorem Ipsum has been the industry's standard dummy
                 text ever since the
               </p>
-              <Button>Get Started</Button>
             </div>
           </div>
         </div>
@@ -38,4 +35,4 @@ const Banner = () => {
   );
 };
 
-export default Banner;
+export default AppoinmentBanner;

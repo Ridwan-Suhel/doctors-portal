@@ -7,7 +7,11 @@ const CareBlock = () => {
       <div className="container mx-auto lg:px-20">
         <div className="hero min-h-screen">
           <div className="hero-content flex-col lg:flex-row">
-            <img src={treatment} className="max-w-sm rounded-lg shadow-2xl" />
+            <img
+              src={treatment}
+              className="sm:w-full md:max-w-sm rounded-lg shadow-2xl"
+              alt="img"
+            />
             <div className="pl-0 lg:pl-10">
               <h1 className="text-5xl font-bold">
                 Exceptional Dental Care, on Your Terms
