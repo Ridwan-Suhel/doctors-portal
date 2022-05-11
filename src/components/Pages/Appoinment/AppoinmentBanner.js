@@ -1,7 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import chair from "../../../assets/images/chair.png";
 import bannerBg from "../../../assets/images/bg.png";
+import { DayPicker } from "react-day-picker";
+import "react-day-picker/dist/style.css";
+import { format } from "date-fns";
 const AppoinmentBanner = () => {
+  const [date, setDate] = useState(new Date());
+
+  //   let footer = <p>Please pick a day.</p>;
+  //   if (date) {
+  //     footer = <p>You picked {format(date, "PP")}.</p>;
+  //   }
+
   return (
     <section
       className=""
@@ -21,11 +31,9 @@ const AppoinmentBanner = () => {
               alt="img"
             />
             <div>
-              <h1 className="text-5xl font-bold">Your New Smile Starts Here</h1>
-              <p className="py-6">
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the
+              <DayPicker mode="single" selected={date} onSelect={setDate} />
+              <p className="text-lg-3xl">
+                You have selected: {format(date, "PP")}
               </p>
             </div>
           </div>
