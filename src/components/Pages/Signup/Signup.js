@@ -1,11 +1,14 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import SocialLogin from "../../Shared/SocialLogin/SocialLogin";
 import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
 import auth from "../../../firebase.init";
+import { data } from "autoprefixer";
+import Loading from "../../Shared/Loading/Loading";
 
 const Signup = () => {
+  const navigate = useNavigate();
   const {
     register,
     formState: { errors },
@@ -18,6 +21,40 @@ const Signup = () => {
   const onSubmit = (data) => {
     createUserWithEmailAndPassword(data.email, data.password);
   };
+
+  let errMsg;
+
+  if (error) {
+    errMsg = (
+      <p className="text-red-500 my-3">
+        <small>{error?.message}</small>
+      </p>
+    );
+  }
+
+  if (error?.message.includes("network-request-failed")) {
+    errMsg = (
+      <p className="text-red-500 my-3">
+        <small>🚫 Oops! Network Problem!</small>
+      </p>
+    );
+  }
+
+  if (error?.message.includes("email-already-in-use")) {
+    errMsg = (
+      <p className="text-red-500 my-3">
+        <small>🚫 Email already Exist.</small>
+      </p>
+    );
+  }
+
+  if (loading) {
+    return <Loading></Loading>;
+  }
+
+  if (user) {
+    navigate("/home");
+  }
 
   return (
     <section>
@@ -33,6 +70,7 @@ const Signup = () => {
                     <span class="">Email</span>
                   </label>
                   <input
+                    type="email"
                     class="input input-bordered w-full"
                     {...register("email", {
                       required: {
@@ -64,6 +102,7 @@ const Signup = () => {
                     <span class="">Password</span>
                   </label>
                   <input
+                    type="password"
                     class="input input-bordered w-full"
                     {...register("password", {
                       required: {
@@ -107,6 +146,7 @@ const Signup = () => {
                     class="btn btn-accent w-full text-xl font-light"
                   />
                 </div>
+                {errMsg}
                 {/* txt content  */}
                 <p className="text-center mt-5">
                   Already have an account?{" "}
