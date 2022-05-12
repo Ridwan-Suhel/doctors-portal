@@ -111,9 +111,8 @@ const Signup = () => {
                 <div class="flex flex-col w-full border-opacity-50">
                   <div class="divider">OR</div>
                 </div>
-
-                <SocialLogin></SocialLogin>
               </form>
+              <SocialLogin></SocialLogin>
             </div>
           </div>
         </div>
