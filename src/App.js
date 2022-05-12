@@ -5,8 +5,8 @@ import Home from "./components/Pages/Home/Home";
 import Login from "./components/Pages/Login/Login";
 import Header from "./components/Shared/Header/Header";
 import NotFound from "./components/Pages/NotFound/NotFound";
-import Footer from "./components/Shared/Footer/Footer";
 import Appoinment from "./components/Pages/Appoinment/Appoinment";
+import Signup from "./components/Pages/Signup/Signup";
 
 function App() {
   return (
@@ -17,9 +17,9 @@ function App() {
         <Route path="/home" element={<Home></Home>}></Route>
         <Route path="/appoinment" element={<Appoinment></Appoinment>}></Route>
         <Route path="/login" element={<Login></Login>}></Route>
+        <Route path="/signup" element={<Signup></Signup>}></Route>
         <Route path="*" element={<NotFound></NotFound>}></Route>
       </Routes>
-      <Footer></Footer>
     </div>
   );
 }

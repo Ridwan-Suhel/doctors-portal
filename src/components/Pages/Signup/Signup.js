@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import SocialLogin from "../../Shared/SocialLogin/SocialLogin";
 
-const Login = () => {
+const Signup = () => {
   const {
     register,
     formState: { errors },
@@ -19,7 +19,7 @@ const Login = () => {
           <div class="card w-5/12 bg-base-100 shadow-xl border">
             <div class="card-body">
               <form onSubmit={handleSubmit(onSubmit)}>
-                <h2 class="text-2xl text-center mb-5">Login</h2>
+                <h2 class="text-2xl text-center mb-5">Sign Up</h2>
                 {/* single input field  */}
                 <div class="form-control w-full">
                   <label class="label">
@@ -96,15 +96,15 @@ const Login = () => {
                 <div class="form-control w-full mt-5">
                   <input
                     type="submit"
-                    value="LOGIN"
+                    value="SIGNUP"
                     class="btn btn-accent w-full text-xl font-light"
                   />
                 </div>
                 {/* txt content  */}
                 <p className="text-center mt-5">
-                  New to Doctors Portal?{" "}
-                  <Link className="text-secondary" to="/signup">
-                    Create new account
+                  Already have an account?{" "}
+                  <Link className="text-secondary" to="/login">
+                    Please Login
                   </Link>
                 </p>
 
@@ -122,4 +122,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Signup;
