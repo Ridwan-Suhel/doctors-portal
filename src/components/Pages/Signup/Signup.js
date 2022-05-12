@@ -2,6 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import SocialLogin from "../../Shared/SocialLogin/SocialLogin";
+import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
+import auth from "../../../firebase.init";
 
 const Signup = () => {
   const {
@@ -10,7 +12,12 @@ const Signup = () => {
     handleSubmit,
   } = useForm();
 
-  const onSubmit = (data) => console.log(data);
+  const [createUserWithEmailAndPassword, user, loading, error] =
+    useCreateUserWithEmailAndPassword(auth);
+
+  const onSubmit = (data) => {
+    createUserWithEmailAndPassword(data.email, data.password);
+  };
 
   return (
     <section>
