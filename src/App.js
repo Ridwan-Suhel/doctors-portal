@@ -7,6 +7,7 @@ import Header from "./components/Shared/Header/Header";
 import NotFound from "./components/Pages/NotFound/NotFound";
 import Appoinment from "./components/Pages/Appoinment/Appoinment";
 import Signup from "./components/Pages/Signup/Signup";
+import RequireAuth from "./components/Shared/RequireAuth/RequireAuth";
 
 function App() {
   return (
@@ -15,7 +16,14 @@ function App() {
       <Routes>
         <Route path="/" element={<Home></Home>}></Route>
         <Route path="/home" element={<Home></Home>}></Route>
-        <Route path="/appoinment" element={<Appoinment></Appoinment>}></Route>
+        <Route
+          path="/appoinment"
+          element={
+            <RequireAuth>
+              <Appoinment></Appoinment>
+            </RequireAuth>
+          }
+        ></Route>
         <Route path="/login" element={<Login></Login>}></Route>
         <Route path="/signup" element={<Signup></Signup>}></Route>
         <Route path="*" element={<NotFound></NotFound>}></Route>

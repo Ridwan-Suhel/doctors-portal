@@ -16,7 +16,8 @@ const AvailableAppoinment = ({ date, setDate }) => {
   return (
     <section className="container mx-auto px-4 py-16">
       <p className="text-center text-xl text-secondary mb-10">
-        Appoinment available on {format(date, "PP")}
+        Appoinment available on {format(date || new Date(), "PP")}
+        {/* this is wrong format use top line code instead  --> wrong double click gaybul hawa  > {format(date, "PP")} */}
       </p>
       <div className="appoinment-card-wrapper">
         <div className="grid grid-cols-3 gap-5">

@@ -74,14 +74,14 @@ const Header = () => {
             Doctor Portal
           </Link>
         </div>
-        <div className="navbar-center hidden lg:flex">
+        <div className="navbar-end hidden lg:flex">
           <ul className="menu menu-horizontal p-0">{menuItems}</ul>
         </div>
-        <div className="navbar-end">
+        {/* <div className="navbar-end">
           <Link to="" className="btn">
             Get started
           </Link>
-        </div>
+        </div> */}
       </div>
     </header>
   );
