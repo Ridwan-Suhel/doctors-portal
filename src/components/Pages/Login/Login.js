@@ -1,16 +1,66 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import SocialLogin from "../../Shared/SocialLogin/SocialLogin";
+import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
+import auth from "../../../firebase.init";
+import Loading from "../../Shared/Loading/Loading";
 
 const Login = () => {
+  const navigate = useNavigate();
   const {
     register,
     formState: { errors },
     handleSubmit,
   } = useForm();
 
-  const onSubmit = (data) => console.log(data);
+  const [signInWithEmailAndPassword, user, loading, error] =
+    useSignInWithEmailAndPassword(auth);
+
+  const onSubmit = (data) => {
+    signInWithEmailAndPassword(data.email, data.password);
+  };
+
+  let errMsg;
+
+  if (error) {
+    errMsg = (
+      <p className="text-red-500 my-3">
+        <small>{error?.message}</small>
+      </p>
+    );
+  }
+
+  if (error?.message.includes("network-request-failed")) {
+    errMsg = (
+      <p className="text-red-500 my-3">
+        <small>🚫 Oops! Network Problem!</small>
+      </p>
+    );
+  }
+  if (error?.message.includes("wrong-password")) {
+    errMsg = (
+      <p className="text-red-500 my-3">
+        <small>🚫 Wrong Password.</small>
+      </p>
+    );
+  }
+
+  if (error?.message.includes("user-not-found")) {
+    errMsg = (
+      <p className="text-red-500 my-3">
+        <small>🚫 Opps! User not found.</small>
+      </p>
+    );
+  }
+
+  if (loading) {
+    return <Loading></Loading>;
+  }
+
+  if (user) {
+    navigate("/");
+  }
 
   return (
     <section>
@@ -100,6 +150,7 @@ const Login = () => {
                     class="btn btn-accent w-full text-xl font-light"
                   />
                 </div>
+                {errMsg}
                 {/* txt content  */}
                 <p className="text-center mt-5">
                   New to Doctors Portal?{" "}
