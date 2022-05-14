@@ -18,7 +18,7 @@ const Signup = () => {
   } = useForm();
 
   const [createUserWithEmailAndPassword, user, loading, error] =
-    useCreateUserWithEmailAndPassword(auth);
+    useCreateUserWithEmailAndPassword(auth, { sendEmailVerification: true });
 
   const [updateProfile, updating, updatingError] = useUpdateProfile(auth);
 
@@ -60,6 +60,7 @@ const Signup = () => {
     await createUserWithEmailAndPassword(data.email, data.password);
     await updateProfile({ displayName: data?.name });
     navigate("/appoinment");
+    console.log("Email verification sent");
   };
 
   return (
