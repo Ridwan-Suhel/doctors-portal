@@ -13,6 +13,7 @@ import { getAuth } from "firebase/auth";
 //   messagingSenderId: process.env.REACT_APP_messagingSenderId,
 //   appId: process.env.REACT_APP_appId,
 // };
+// console.log(firebaseConfig);
 const firebaseConfig = {
   apiKey: "AIzaSyBk7PMCQynp36d6cq6O6KMGYEYKjlxmzG8",
   authDomain: "doctors-portal-1f360.firebaseapp.com",

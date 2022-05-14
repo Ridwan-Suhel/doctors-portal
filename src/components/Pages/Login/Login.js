@@ -1,8 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import SocialLogin from "../../Shared/SocialLogin/SocialLogin";
-import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
+import {
+  useSendPasswordResetEmail,
+  useSignInWithEmailAndPassword,
+} from "react-firebase-hooks/auth";
 import auth from "../../../firebase.init";
 import Loading from "../../Shared/Loading/Loading";
 
@@ -10,6 +13,7 @@ const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
   let from = location?.state?.from?.pathname || "/";
+
   const {
     register,
     formState: { errors },
@@ -18,6 +22,8 @@ const Login = () => {
 
   const [signInWithEmailAndPassword, user, loading, error] =
     useSignInWithEmailAndPassword(auth);
+  const [sendPasswordResetEmail, sending, ResetPassError] =
+    useSendPasswordResetEmail(auth);
 
   useEffect(() => {
     if (user) {
@@ -79,6 +85,8 @@ const Login = () => {
                   <label className="label">
                     <span className="">Email</span>
                   </label>
+                  {/* {=============================================
+                  ============================================================} */}
                   <input
                     type="email"
                     className="input input-bordered w-full"
@@ -147,6 +155,11 @@ const Login = () => {
                     )}
                   </label>
                 </div>
+                {/* {=============================================
+                  ============================================================} */}
+                <span className="btn pl-0 btn-link text-accent">
+                  Forget password?
+                </span>
 
                 {/* single input field  */}
                 <div className="form-control w-full mt-5">

@@ -10,9 +10,9 @@ const Header = () => {
   const logout = () => {
     signOut(auth);
   };
-  if (loading) {
-    return <Loading></Loading>;
-  }
+  // if (loading) {
+  //   return <Loading></Loading>;
+  // }
   const menuItems = (
     <>
       <li>
