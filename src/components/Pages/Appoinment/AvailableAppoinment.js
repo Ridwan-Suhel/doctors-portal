@@ -1,18 +1,43 @@
 import { format } from "date-fns";
 import React, { useEffect, useState } from "react";
+import { useQuery } from "react-query";
+import Loading from "../../Shared/Loading/Loading";
 import BookingModal from "./BookingModal";
 import Service from "./Service";
 
 const AvailableAppoinment = ({ date, setDate }) => {
-  const [services, setService] = useState([]);
+  // const [services, setService] = useState([]);
   const [treatment, setTreatment] = useState(null);
 
   const formattedDate = format(date, "PP");
-  useEffect(() => {
-    fetch(`http://localhost:5000/available?date=${formattedDate}`)
-      .then((res) => res.json())
-      .then((data) => setService(data));
-  }, []);
+
+  const {
+    data: services,
+    isLoading,
+    refetch,
+  } = useQuery(["available", formattedDate], () =>
+    fetch(`http://localhost:5000/available?date=${formattedDate}`).then((res) =>
+      res.json()
+    )
+  );
+
+  if (isLoading) {
+    return (
+      <div className="flex mt-[-25px]">
+        <button class="btn btn-square loading mx-auto"></button>
+      </div>
+    );
+  }
+
+  // if (isLoading) {
+  //   return <Loading></Loading>;
+  // }
+
+  // useEffect(() => {
+  //   fetch(`http://localhost:5000/available?date=${formattedDate}`)
+  //     .then((res) => res.json())
+  //     .then((data) => setService(data));
+  // }, [formattedDate]);
 
   return (
     <section className="container mx-auto px-4 py-16">
@@ -22,7 +47,7 @@ const AvailableAppoinment = ({ date, setDate }) => {
       </p>
       <div className="appoinment-card-wrapper">
         <div className="grid grid-cols-3 gap-5">
-          {services.map((service) => (
+          {services?.map((service) => (
             <Service
               key={service._id}
               service={service}
@@ -35,6 +60,7 @@ const AvailableAppoinment = ({ date, setDate }) => {
             setTreatment={setTreatment}
             date={date}
             treatment={treatment}
+            refetch={refetch}
           ></BookingModal>
         )}
       </div>

@@ -30,6 +30,11 @@ const Header = () => {
       <li>
         <Link to="/contact">Contact us</Link>
       </li>
+      {user && (
+        <li>
+          <Link to="/dashboard">Dashboard</Link>
+        </li>
+      )}
       <li>
         {user ? (
           <span className="" onClick={logout}>
@@ -45,8 +50,28 @@ const Header = () => {
   return (
     <header className="container mx-auto">
       <div className="navbar bg-base-100">
-        <div className="navbar-start">
-          <div className="dropdown">
+        <div className="navbar-start lg:w-1/4">
+          <label for="my-drawer-2" class="pl-3 drawer-button lg:hidden">
+            <svg
+              class="swap-off fill-current"
+              xmlns="http://www.w3.org/2000/svg"
+              width="28"
+              height="28"
+              viewBox="0 0 512 512"
+            >
+              <path d="M64,384H448V341.33H64Zm0-106.67H448V234.67H64ZM64,128v42.67H448V128Z" />
+            </svg>
+          </label>
+          <Link to="" className="btn btn-ghost normal-case text-xl">
+            Doctor Portal
+          </Link>
+        </div>
+        <div className="navbar-end hidden lg:w-3/4 lg:flex">
+          <ul className="menu menu-horizontal p-0">{menuItems}</ul>
+        </div>
+        {/* ================================= */}
+        <div className="navbar-end lg:hidden">
+          <div className="dropdown dropdown-end">
             <label tabIndex="0" className="btn btn-ghost lg:hidden">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -70,18 +95,7 @@ const Header = () => {
               {menuItems}
             </ul>
           </div>
-          <Link to="" className="btn btn-ghost normal-case text-xl">
-            Doctor Portal
-          </Link>
         </div>
-        <div className="navbar-end hidden lg:flex">
-          <ul className="menu menu-horizontal p-0">{menuItems}</ul>
-        </div>
-        {/* <div className="navbar-end">
-          <Link to="" className="btn">
-            Get started
-          </Link>
-        </div> */}
       </div>
     </header>
   );
