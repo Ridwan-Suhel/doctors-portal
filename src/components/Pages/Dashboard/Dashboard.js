@@ -1,14 +1,21 @@
 import React from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
 import { Link, NavLink, Outlet } from "react-router-dom";
+import auth from "../../../firebase.init";
 
 const Dashboard = () => {
+  const [user] = useAuthState(auth);
   return (
     <div class="drawer drawer-mobile">
       <input id="my-drawer-2" type="checkbox" class="drawer-toggle" />
       <div class="drawer-content ">
         {/* <!-- Page content here --> */}
         <div className="wrapper px-4">
-          <h2 className="text-2xl text-primary">Welcome to dashboard.</h2>
+          {user?.displayName ? (
+            <h2 className="text-2xl text-accent">Hi! {user?.displayName}.</h2>
+          ) : (
+            <h2 className="text-2xl text-accent">Welcome to dashboard.</h2>
+          )}
           <Outlet></Outlet>
         </div>
         {/* <!-- Page content here --> */}
