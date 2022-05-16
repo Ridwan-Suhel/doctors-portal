@@ -8,6 +8,8 @@ import {
 } from "react-firebase-hooks/auth";
 import auth from "../../../firebase.init";
 import Loading from "../../Shared/Loading/Loading";
+import useToken from "../../../hooks/useToken";
+import { toast } from "react-toastify";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -18,9 +20,13 @@ const Signup = () => {
   } = useForm();
 
   const [createUserWithEmailAndPassword, user, loading, error] =
-    useCreateUserWithEmailAndPassword(auth, { sendEmailVerification: true });
+    useCreateUserWithEmailAndPassword(auth);
+  // const [createUserWithEmailAndPassword, user, loading, error] =
+  //   useCreateUserWithEmailAndPassword(auth, { sendEmailVerification: true });
 
   const [updateProfile, updating, updatingError] = useUpdateProfile(auth);
+
+  const [token] = useToken(user);
 
   let errMsg;
 
@@ -52,15 +58,15 @@ const Signup = () => {
     return <Loading></Loading>;
   }
 
-  // if (user) {
-  //   navigate("/home");
-  // }
+  if (token) {
+    navigate("/appoinment");
+  }
 
   const onSubmit = async (data) => {
     await createUserWithEmailAndPassword(data.email, data.password);
     await updateProfile({ displayName: data?.name });
-    navigate("/appoinment");
-    console.log("Email verification sent");
+    // toast.success("Email verification sent. please check email.");
+    // navigate("/appoinment");
   };
 
   return (

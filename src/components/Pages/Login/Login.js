@@ -20,20 +20,28 @@ const Login = () => {
     handleSubmit,
   } = useForm();
 
+  // const { onBlur } = register("email");
+
+  // console.log({ email: "value" });
+
+  register("email", {
+    onBlur: (e) => console.log(e),
+  });
+
   const [signInWithEmailAndPassword, user, loading, error] =
     useSignInWithEmailAndPassword(auth);
   const [sendPasswordResetEmail, sending, ResetPassError] =
     useSendPasswordResetEmail(auth);
+
+  const onSubmit = (data) => {
+    signInWithEmailAndPassword(data.email, data.password);
+  };
 
   useEffect(() => {
     if (user) {
       navigate(from, { replace: true });
     }
   }, [user, from, navigate]);
-
-  const onSubmit = (data) => {
-    signInWithEmailAndPassword(data.email, data.password);
-  };
 
   let errMsg;
 
