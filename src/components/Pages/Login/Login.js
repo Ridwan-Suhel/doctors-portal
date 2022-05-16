@@ -8,6 +8,8 @@ import {
 } from "react-firebase-hooks/auth";
 import auth from "../../../firebase.init";
 import Loading from "../../Shared/Loading/Loading";
+import useToken from "../../../hooks/useToken";
+import { toast, ToastContainer } from "react-toastify";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -20,10 +22,6 @@ const Login = () => {
     handleSubmit,
   } = useForm();
 
-  // const { onBlur } = register("email");
-
-  // console.log({ email: "value" });
-
   register("email", {
     onBlur: (e) => console.log(e),
   });
@@ -33,15 +31,18 @@ const Login = () => {
   const [sendPasswordResetEmail, sending, ResetPassError] =
     useSendPasswordResetEmail(auth);
 
+  const [token] = useToken(user);
+
   const onSubmit = (data) => {
     signInWithEmailAndPassword(data.email, data.password);
   };
 
   useEffect(() => {
-    if (user) {
+    if (token) {
       navigate(from, { replace: true });
+      toast.success("Email verification sent. please check email.");
     }
-  }, [user, from, navigate]);
+  }, [token, from, navigate]);
 
   let errMsg;
 

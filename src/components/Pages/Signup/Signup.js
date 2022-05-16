@@ -9,7 +9,7 @@ import {
 import auth from "../../../firebase.init";
 import Loading from "../../Shared/Loading/Loading";
 import useToken from "../../../hooks/useToken";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -20,9 +20,7 @@ const Signup = () => {
   } = useForm();
 
   const [createUserWithEmailAndPassword, user, loading, error] =
-    useCreateUserWithEmailAndPassword(auth);
-  // const [createUserWithEmailAndPassword, user, loading, error] =
-  //   useCreateUserWithEmailAndPassword(auth, { sendEmailVerification: true });
+    useCreateUserWithEmailAndPassword(auth, { sendEmailVerification: true });
 
   const [updateProfile, updating, updatingError] = useUpdateProfile(auth);
 
@@ -60,12 +58,13 @@ const Signup = () => {
 
   if (token) {
     navigate("/appoinment");
+    toast.success("Email verification sent. please check email.");
   }
 
   const onSubmit = async (data) => {
     await createUserWithEmailAndPassword(data.email, data.password);
     await updateProfile({ displayName: data?.name });
-    // toast.success("Email verification sent. please check email.");
+
     // navigate("/appoinment");
   };
 
