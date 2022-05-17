@@ -10,7 +10,7 @@ const Dashboard = () => {
   return (
     <div class="drawer drawer-mobile">
       <input id="my-drawer-2" type="checkbox" class="drawer-toggle" />
-      <div class="drawer-content ">
+      <div class="drawer-content">
         {/* <!-- Page content here --> */}
         <div className="wrapper px-4">
           {user?.displayName ? (
@@ -42,6 +42,9 @@ const Dashboard = () => {
               </li>
               <li>
                 <Link to="/dashboard/adddoctor">Add Doctor</Link>
+              </li>
+              <li>
+                <Link to="/dashboard/managedoctor">Manage Doctor</Link>
               </li>
             </>
           )}
