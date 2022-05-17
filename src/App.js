@@ -16,6 +16,7 @@ import MyReview from "./components/Pages/Dashboard/MyReview";
 import MyHistory from "./components/Pages/Dashboard/MyHistory";
 import Users from "./components/Pages/Dashboard/Users";
 import RequireAdmin from "./components/Shared/RequireAuth/RequireAdmin";
+import AddDoctor from "./components/Pages/Dashboard/AddDoctor";
 
 function App() {
   return (
@@ -51,7 +52,16 @@ function App() {
               </RequireAdmin>
             }
           />
+          <Route
+            path="adddoctor"
+            element={
+              <RequireAdmin>
+                <AddDoctor />
+              </RequireAdmin>
+            }
+          />
         </Route>
+
         <Route path="/login" element={<Login></Login>}></Route>
         <Route path="/signup" element={<Signup></Signup>}></Route>
         <Route path="*" element={<NotFound></NotFound>}></Route>

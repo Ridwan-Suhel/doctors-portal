@@ -46,7 +46,7 @@ const AvailableAppoinment = ({ date, setDate }) => {
         {/* this is wrong format use top line code instead  --> wrong double click gaybul hawa  > {format(date, "PP")} */}
       </p>
       <div className="appoinment-card-wrapper">
-        <div className="grid grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {services?.map((service) => (
             <Service
               key={service._id}
