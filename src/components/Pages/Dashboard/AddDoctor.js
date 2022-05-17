@@ -1,5 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import { useQuery } from "react-query";
+import Loading from "../../Shared/Loading/Loading";
 
 const AddDoctor = () => {
   const {
@@ -8,7 +10,33 @@ const AddDoctor = () => {
     handleSubmit,
   } = useForm();
 
-  const onSubmit = (data) => {};
+  const { data: services, isLoading } = useQuery("services", () =>
+    fetch("http://localhost:5000/service").then((res) => res.json())
+  );
+
+  const imageStorageKey = "ce950de04ec24100b4296e5837ff26c5";
+
+  const onSubmit = async (data) => {
+    console.log(data);
+    const image = data.image[0];
+    const formData = new FormData();
+    formData.append("image", image);
+    const url = `https://api.imgbb.com/1/upload?key=${imageStorageKey}`;
+    fetch(url, {
+      method: "POST",
+      body: formData,
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        if (result.success) {
+          const img = result.data.url;
+        }
+      });
+  };
+
+  if (isLoading) {
+    return <Loading></Loading>;
+  }
 
   return (
     <div className="">
@@ -18,7 +46,7 @@ const AddDoctor = () => {
           <div className="card-body">
             <form onSubmit={handleSubmit(onSubmit)}>
               <h2 className="text-2xl text-center mb-5">Add Doctor</h2>
-              {/* single input field  */}
+              {/* single input name field  */}
               <div className="form-control w-full">
                 <label className="label">
                   <span className="">Name</span>
@@ -41,7 +69,7 @@ const AddDoctor = () => {
                   )}
                 </label>
               </div>
-              {/* single input field  */}
+              {/* single input email field  */}
               <div className="form-control w-full">
                 <label className="label">
                   <span className="">Email</span>
@@ -73,53 +101,56 @@ const AddDoctor = () => {
                   )}
                 </label>
               </div>
-              {/* single input field  */}
+              {/* single input specialty field  */}
               <div className="form-control w-full">
                 <label className="label">
-                  <span className="">Password</span>
+                  <span className="">Specialty</span>
                 </label>
-                <input
-                  type="password"
-                  className="input input-bordered w-full"
-                  {...register("password", {
+                <select
+                  type="text"
+                  class="select select-bordered w-full"
+                  {...register("specialty", {
                     required: {
                       value: true,
-                      message: "Password is required",
+                      message: "Specialization is required",
                     },
-                    minLength: {
-                      value: 6,
-                      message: "Must be 6 charecters or longer.",
-                    },
-                    pattern: {
-                      value: /(?=.*[!@#$%^&*])/,
-                      message: "Use atleast one special charecter.",
+                  })}
+                >
+                  {services?.map((service) => (
+                    <option value={service.name} key={service._id}>
+                      {service.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              {/* single input image field  */}
+              <div className="form-control w-full">
+                <label className="label">
+                  <span className="">Image</span>
+                </label>
+                <input
+                  type="file"
+                  className="input input-bordered w-full pt-1.5"
+                  {...register("image", {
+                    required: {
+                      value: true,
+                      message: "Image is required",
                     },
                   })}
                 />
                 <label className="label">
-                  {errors.password?.type === "required" && (
+                  {errors.name?.type === "required" && (
                     <span className="label-text-alt text-red-500">
-                      {errors.password?.message}
-                    </span>
-                  )}
-                  {errors.password?.type === "minLength" && (
-                    <span className="label-text-alt text-red-500">
-                      {errors.password?.message}
-                    </span>
-                  )}
-                  {errors.password?.type === "pattern" && (
-                    <span className="label-text-alt text-red-500">
-                      {errors.password?.message}
+                      {errors.name?.message}
                     </span>
                   )}
                 </label>
               </div>
-
               {/* single input field  */}
               <div className="form-control w-full mt-5">
                 <input
                   type="submit"
-                  value="SIGNUP"
+                  value="Add Doctor"
                   className="btn btn-accent w-full text-xl font-light"
                 />
               </div>
