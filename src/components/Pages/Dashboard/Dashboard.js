@@ -20,7 +20,7 @@ const Dashboard = () => {
           )}
           <Outlet></Outlet>
         </div>
-        {/* <!-- Page content here --> */}
+        {/* <!-- Page content end here --> */}
       </div>
       <div class="drawer-side">
         <label for="my-drawer-2" class="drawer-overlay"></label>
