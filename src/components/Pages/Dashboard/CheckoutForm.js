@@ -5,13 +5,14 @@ const CheckoutForm = ({ appoinment }) => {
   const elements = useElements();
   const [cardError, setCardError] = useState("");
   const [success, setSuccess] = useState("");
+  const [processing, setProcessing] = useState(false);
   const [transactionId, setTransactionId] = useState("");
   const [clientSecret, setClientSecret] = useState("");
 
-  const { price, patient, patientName } = appoinment;
+  const { _id, price, patient, patientName } = appoinment;
 
   useEffect(() => {
-    fetch("http://localhost:5000/create-payment-intent", {
+    fetch("https://stormy-plateau-22778.herokuapp.com/create-payment-intent", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -51,6 +52,7 @@ const CheckoutForm = ({ appoinment }) => {
       setCardError("");
     }
     setSuccess("");
+    setProcessing(true);
 
     //confirm card payment
     const { paymentIntent, error: intentError } =
@@ -66,11 +68,33 @@ const CheckoutForm = ({ appoinment }) => {
 
     if (intentError) {
       setCardError(intentError?.message);
+      setProcessing(false);
     } else {
       setCardError("");
       console.log(paymentIntent);
       setTransactionId(paymentIntent.id);
       setSuccess("Congrats! Your payment is completed.");
+
+      // storing payment info to database
+      const payment = {
+        appoinment: _id,
+        transactionId: paymentIntent.id,
+      };
+
+      //patch/update data for payment info
+      fetch(`https://stormy-plateau-22778.herokuapp.com/booking/${_id}`, {
+        method: "PATCH",
+        headers: {
+          "content-type": "application/json",
+          authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+        body: JSON.stringify(payment),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          setProcessing(false);
+        });
     }
   };
 

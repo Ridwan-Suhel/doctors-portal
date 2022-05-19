@@ -14,12 +14,15 @@ const MyAppoinment = () => {
 
   useEffect(() => {
     if (user) {
-      fetch(`http://localhost:5000/booking?patient=${user?.email}`, {
-        method: "GET",
-        headers: {
-          authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-        },
-      })
+      fetch(
+        `https://stormy-plateau-22778.herokuapp.com/booking?patient=${user?.email}`,
+        {
+          method: "GET",
+          headers: {
+            authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        }
+      )
         .then((res) => {
           if (res.status === 401 || res.status === 403) {
             signOut(auth);
@@ -55,7 +58,7 @@ const MyAppoinment = () => {
           <tbody>
             {/* <!-- row 1 --> */}
             {appoinments.map((appoinment, index) => (
-              <tr>
+              <tr key={index}>
                 <th>{index + 1}</th>
                 <td>{appoinment?.patientName}</td>
                 <td>{appoinment?.date}</td>
@@ -71,7 +74,15 @@ const MyAppoinment = () => {
                     </Link>
                   )}
                   {appoinment?.price && appoinment?.paid && (
-                    <span className="btn btn-xs btn-success">Paid</span>
+                    <>
+                      <p>
+                        <span className="btn btn-xs px-4">Paid</span>
+                      </p>
+                      <p className="bg-gray-900 text-white p-1 rounded mt-2">
+                        <strong>Transaction Id:</strong>{" "}
+                        <small>{appoinment?.transactionId}</small>
+                      </p>
+                    </>
                   )}
                 </td>
               </tr>

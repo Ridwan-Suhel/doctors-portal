@@ -13,7 +13,9 @@ const AddDoctor = () => {
   } = useForm();
 
   const { data: services, isLoading } = useQuery("services", () =>
-    fetch("http://localhost:5000/service").then((res) => res.json())
+    fetch("https://stormy-plateau-22778.herokuapp.com/service").then((res) =>
+      res.json()
+    )
   );
 
   const imageStorageKey = "ce950de04ec24100b4296e5837ff26c5";
@@ -38,7 +40,7 @@ const AddDoctor = () => {
             img: img,
           };
           // sending to database
-          fetch("http://localhost:5000/doctor", {
+          fetch("https://stormy-plateau-22778.herokuapp.com/doctor", {
             method: "POST",
             headers: {
               "content-type": "application/json",

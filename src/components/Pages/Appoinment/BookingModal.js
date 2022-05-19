@@ -25,7 +25,7 @@ const BookingModal = ({ date, treatment, setTreatment, refetch }) => {
       phone: event.target.phone.value,
     };
 
-    fetch("http://localhost:5000/booking", {
+    fetch("https://stormy-plateau-22778.herokuapp.com/booking", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

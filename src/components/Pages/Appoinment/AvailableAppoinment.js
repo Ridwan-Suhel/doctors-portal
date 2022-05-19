@@ -16,9 +16,9 @@ const AvailableAppoinment = ({ date, setDate }) => {
     isLoading,
     refetch,
   } = useQuery(["available", formattedDate], () =>
-    fetch(`http://localhost:5000/available?date=${formattedDate}`).then((res) =>
-      res.json()
-    )
+    fetch(
+      `https://stormy-plateau-22778.herokuapp.com/available?date=${formattedDate}`
+    ).then((res) => res.json())
   );
 
   if (isLoading) {
@@ -34,7 +34,7 @@ const AvailableAppoinment = ({ date, setDate }) => {
   // }
 
   // useEffect(() => {
-  //   fetch(`http://localhost:5000/available?date=${formattedDate}`)
+  //   fetch(`https://stormy-plateau-22778.herokuapp.com/available?date=${formattedDate}`)
   //     .then((res) => res.json())
   //     .then((data) => setService(data));
   // }, [formattedDate]);
