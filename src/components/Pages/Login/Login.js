@@ -16,15 +16,13 @@ const Login = () => {
   const location = useLocation();
   let from = location?.state?.from?.pathname || "/";
 
+  const [email, setEmail] = useState("");
+
   const {
     register,
     formState: { errors },
     handleSubmit,
   } = useForm();
-
-  register("email", {
-    onBlur: (e) => console.log(e),
-  });
 
   const [signInWithEmailAndPassword, user, loading, error] =
     useSignInWithEmailAndPassword(auth);
@@ -100,6 +98,7 @@ const Login = () => {
                     type="email"
                     className="input input-bordered w-full"
                     {...register("email", {
+                      onChange: (e) => setEmail(e.target.value),
                       required: {
                         value: true,
                         message: "Email is required",
@@ -164,11 +163,19 @@ const Login = () => {
                     )}
                   </label>
                 </div>
-                {/* {=============================================
+                {/* {====================Reset password btn =========================
                   ============================================================} */}
-                <span className="btn pl-0 btn-link text-accent">
+                <span
+                  className="btn pl-0 btn-link text-accent"
+                  onClick={async () => {
+                    await sendPasswordResetEmail(email);
+                    toast("Reset your password. please check email.");
+                  }}
+                >
                   Forget password?
                 </span>
+                {/* {=============================================
+                  ============================================================} */}
 
                 {/* single input field  */}
                 <div className="form-control w-full mt-5">
