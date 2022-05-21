@@ -26,6 +26,7 @@ const Login = () => {
 
   const [signInWithEmailAndPassword, user, loading, error] =
     useSignInWithEmailAndPassword(auth);
+
   const [sendPasswordResetEmail, sending, ResetPassError] =
     useSendPasswordResetEmail(auth);
 
@@ -38,9 +39,12 @@ const Login = () => {
   useEffect(() => {
     if (token) {
       navigate(from, { replace: true });
-      toast.success("Email verification sent. please check email.");
     }
   }, [token, from, navigate]);
+
+  if (user?.emailVerified) {
+    toast.success("Email verification sent. please check email.");
+  }
 
   let errMsg;
 
@@ -169,7 +173,11 @@ const Login = () => {
                   className="btn pl-0 btn-link text-accent"
                   onClick={async () => {
                     await sendPasswordResetEmail(email);
-                    toast("Reset your password. please check email.");
+                    if (email === "") {
+                      toast.error("Email is required.");
+                    } else {
+                      toast("Reset your password. please check email.");
+                    }
                   }}
                 >
                   Forget password?
